@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Attach to gdbserver",
+            "remote": true,
+            "target": "127.0.0.1:25000",
+            "cwd": "${workspaceRoot}",
+            "valuesFormatting": "prettyPrinters",
+            "stopAtEntry": true,
+            "gdbpath": "/usr/bin/gdb-multiarch",
+            "executable": "kernel/kernel",
+            "preLaunchTask": "qemu-gdb",
+            "autorun": ["set confirm off","set architecture riscv:rv64"],
+            "postDebugTask": "qemu-clean"
+        }
+    ]
+}

@@ -11,7 +11,9 @@ entryother
 initcode
 initcode.out
 kernelmemfs
-mkfs
 kernel/kernel
 user/usys.S
 .gdbinit
+**.DS_Store
+compile_commands.json
+mkfs/mkfs
