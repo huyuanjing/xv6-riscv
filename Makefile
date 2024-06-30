@@ -107,7 +107,7 @@ $U/_forktest: $U/forktest.o $(ULIB)
 	$(OBJDUMP) -S $U/_forktest > $U/forktest.asm
 
 mkfs/mkfs: mkfs/mkfs.c $K/fs.h $K/param.h
-	gcc -Werror -Wall -I. -o mkfs/mkfs mkfs/mkfs.c
+	clang -Werror -Wall -I. -o mkfs/mkfs mkfs/mkfs.c
 
 # Prevent deletion of intermediate files, e.g. cat.o, after first build, so
 # that disk image changes after first build are persistent until clean.  More
@@ -133,8 +133,8 @@ UPROGS=\
 	$U/_wc\
 	$U/_zombie\
 
-fs.img: mkfs/mkfs README $(UPROGS)
-	mkfs/mkfs fs.img README $(UPROGS)
+fs.img: mkfs/mkfs $(UPROGS)
+	mkfs/mkfs fs.img $(UPROGS)
 
 -include kernel/*.d user/*.d
 
@@ -164,10 +164,15 @@ QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 qemu: $K/kernel fs.img
 	$(QEMU) $(QEMUOPTS)
 
-.gdbinit: .gdbinit.tmpl-riscv
-	sed "s/:1234/:$(GDBPORT)/" < $^ > $@
-
-qemu-gdb: $K/kernel .gdbinit fs.img
+qemu-gdb: $K/kernel fs.img
 	@echo "*** Now run 'gdb' in another window." 1>&2
 	$(QEMU) $(QEMUOPTS) -S $(QEMUGDB)
 
+make-and-compile: $K/kernel fs.img
+
+make-and-compile-with-bear:
+	$(MAKE) clean
+	bear -- $(MAKE) make-and-compile
+
+.PHONY: make-and-compile make-and-compile-with-bear
+.DEFAULT_GOAL = make-and-compile-with-bear

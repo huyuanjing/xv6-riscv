@@ -1,0 +1,3 @@
+[submodule "xv6-riscv-book-Chinese"]
+	path = xv6-riscv-book-Chinese
+	url = https://github.com/zhenyu-zang/xv6-riscv-book-Chinese.git
