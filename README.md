@@ -13,13 +13,8 @@
 - 更新代码后使用跳转功能时需要在 xv6-riscv 项目的根目录下执行 make 命令生成代码之间的关系.
 
 # 使用方式
-## 第一种:直接使用codespaces
-<img src='.assert/Screenshot%202024-06-30%20at%2023.15.16.png' height="300">
-
-## 第二种:自己按照步骤搭建调试环境的步骤
-
 >环境配置及前提条件
->- 推荐使用 Debian 系统，其他 Linux 发行版可能需要自行解决库的安装问题。
+>- 推荐使用 Debian 系统，其他 Linux 发行版可能需要自行解决库的安装问题。(可以搭建虚拟机,使用VSCode的ssh远程开发)
 >- 需要使用 VSCode 作为编辑器。
 
 ### 一、 相关库的安装命令
@@ -36,5 +31,6 @@
 ### 三、加载中文文档
 - 在 xv6-riscv 根目录下执行以下命令来加载中文文档:
 ```sh
+    git submodule init
     git submodule update
 ```
